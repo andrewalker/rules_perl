@@ -1,0 +1,24 @@
+load("@com_booking_rules_perl//:def.bzl", "perl_library", "perl_binary", "perl_test")
+
+perl_library(
+    name = "hello",
+    srcs = [ "lib/Hello.pm" ],
+    deps = ["//examples/some-other-package:Something-Important"],
+)
+
+perl_binary(
+    name = "hello_bin",
+    srcs = ["hello.pl"],
+    data = [ "name.txt" ],
+    main = "hello.pl",
+    deps = [":hello"],
+)
+
+perl_test(
+    name = "hello_test",
+    srcs = ["t/basic.t"],
+    data = [ "t/foo.txt" ],
+    main = "t/basic.t",
+    deps = [":hello"],
+    size = "small",
+)

@@ -1,0 +1,8 @@
+load("@com_booking_rules_perl//:def.bzl", "perl_library")
+
+perl_library(
+    name = "Something-Important",
+    srcs = [ "lib/Something/Important.pm" ],
+    data = [ "important-data.txt" ],
+    visibility = ["//examples/hello-world:__pkg__"],
+)
