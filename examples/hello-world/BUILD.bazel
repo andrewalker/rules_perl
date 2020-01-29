@@ -1,4 +1,4 @@
-load("@com_booking_rules_perl//:def.bzl", "perl_library", "perl_binary", "perl_test")
+load("@com_booking_rules_perl//:def.bzl", "perl_library", "perl_binary", "perl_test", "perl_image")
 
 perl_library(
     name = "hello",
@@ -12,6 +12,19 @@ perl_binary(
     data = [ "name.txt" ],
     main = "hello.pl",
     deps = [":hello"],
+)
+
+perl_image(
+    name = "hello-world-image",
+    srcs = ["hello.pl"],
+    data = [ "name.txt" ],
+    main = "hello.pl",
+    deps = [":hello"],
+)
+
+perl_image(
+    name = "hello-world-image-from-binary",
+    binary = ":hello-world",
 )
 
 perl_test(
