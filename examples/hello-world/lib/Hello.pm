@@ -21,7 +21,6 @@ sub say_hello {
     my $name = <$fh>;
     chomp $name;
 
-
     say "Hello $name";
 }
 
