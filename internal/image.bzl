@@ -13,10 +13,7 @@ def repositories():
             digest = "sha256:13762a970e0527f324d8c8e7de545e5a77479cfac6add43a02dd186140332e73"
         )
 
-def perl_image(name, base = None, deps = [], layers = [], binary = None, **kwargs):
-    if layers:
-        print("perl_image does not benefit from layers=[], got: %s" % layers)
-
+def perl_image(name, base = None, deps = [], layers = [], binary = None, entrypoint = None, **kwargs):
     if not binary:
         binary = name + ".binary"
         perl_binary(name = binary, deps = deps + layers, **kwargs)
@@ -31,6 +28,7 @@ def perl_image(name, base = None, deps = [], layers = [], binary = None, **kwarg
         base = base,
         binary = binary,
         directory = '/srv/app',
+        entrypoint = entrypoint,
         visibility = kwargs.get("visibility", None),
         tags = kwargs.get("tags", None),
         args = kwargs.get("args"),
