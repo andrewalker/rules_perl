@@ -7,7 +7,7 @@ perl_library(
 )
 
 perl_binary(
-    name = "hello_bin",
+    name = "hello-world",
     srcs = ["hello.pl"],
     data = [ "name.txt" ],
     main = "hello.pl",
