@@ -1,6 +1,6 @@
 workspace(name = "com_booking_rules_perl")
 
-load("//repositories:repositories.bzl", "repositories")
+load("//:repositories.bzl", "repositories")
 repositories()
-load("//repositories:deps.bzl", "deps")
+load("//:deps.bzl", "deps")
 deps()
