@@ -23,34 +23,20 @@ def _perl_binary_impl(ctx):
         transitive = trans_lib_deps,
     )
 
-
     wrapper = ctx.outputs.executable
-    wrapper_content = "exec perl {perl_script} {extra_args}"
-
-    inner_wrapper = ctx.actions.declare_file(
-        ctx.label.name + '.pl',
-        sibling = wrapper
-    )
-    inner_wrapper_content = """
-use strict;
-use warnings;
-use Cwd qw(cwd abs_path);
-push @INC, map "$ENV{{RUNFILES}}/$_", split "\\0", "{incs}";
-
-# ooh, I'm feeling dirty :D
-my $script = $0 = abs_path(cwd . "/{perl_script}");
-
-do $script or die $@;
-"""
-    ctx.actions.write(inner_wrapper, inner_wrapper_content.format(perl_script = ctx.file.main.short_path, incs = "\0".join(trans_lib.to_list()) ))
+    wrapper_content = "PERL5LIB='{perl5lib}' exec perl {perl_script} {extra_args}"
 
     write_runfiles_tmpl(
         ctx,
         wrapper,
-        wrapper_content.format(perl_script = inner_wrapper.short_path, extra_args = " ".join(getattr(ctx.attr, 'extra_args')) ),
+        wrapper_content.format(
+            perl5lib = ":".join(trans_lib.to_list()),
+            perl_script = ctx.file.main.short_path,
+            extra_args = " ".join(getattr(ctx.attr, 'extra_args'))
+        ),
     )
 
-    all_files = [inner_wrapper] + trans_srcs.to_list() + trans_data.to_list()
+    all_files = trans_srcs.to_list() + trans_data.to_list()
 
     return [
         PerlInfo(
