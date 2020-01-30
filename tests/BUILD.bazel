@@ -1,0 +1,2 @@
+load(":suite.bzl", "perl_test_suite")
+perl_test_suite(name = "perl_tests")
