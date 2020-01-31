@@ -8,6 +8,6 @@ def perl_test_suite(name):
             "//tests/library-custom-dir:test",
             "//tests/library-data:test",
             "//tests/binary-simple:test",
-            # ...
+            "//tests/binary-deps:test",
         ],
     )
