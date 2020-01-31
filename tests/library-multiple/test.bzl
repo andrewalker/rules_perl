@@ -5,10 +5,10 @@ def _test_impl(ctx):
     env = analysistest.begin(ctx)
 
     t = analysistest.target_under_test(env)
-    libs = [ "tests/multiple-libraries/lib/A.pm", "tests/multiple-libraries/lib/B.pm", "tests/multiple-libraries/lib/C.pm" ]
+    libs = [ "tests/library-multiple/lib/A.pm", "tests/library-multiple/lib/B.pm", "tests/library-multiple/lib/C.pm" ]
 
     asserts.equals(env, libs, [ d.short_path for d in t [PerlInfo].transitive_sources.to_list() ])
-    asserts.equals(env, ["tests/multiple-libraries/lib"], t[PerlInfo].transitive_lib_dirs.to_list())
+    asserts.equals(env, ["tests/library-multiple/lib"], t[PerlInfo].transitive_lib_dirs.to_list())
     asserts.equals(env, [], t[PerlInfo].transitive_data_files.to_list())
 
     asserts.equals(env, libs, [d.short_path for d in t[DefaultInfo].files.to_list()])

@@ -6,12 +6,12 @@ def _test_impl(ctx):
 
     t = analysistest.target_under_test(env)
 
-    asserts.equals(env, ["tests/single-library/lib/Single/Library.pm"], [d.short_path for d in t[PerlInfo].transitive_sources.to_list()])
-    asserts.equals(env, ["tests/single-library/lib"], t[PerlInfo].transitive_lib_dirs.to_list())
+    asserts.equals(env, ["tests/library-single/lib/Single/Library.pm"], [d.short_path for d in t[PerlInfo].transitive_sources.to_list()])
+    asserts.equals(env, ["tests/library-single/lib"], t[PerlInfo].transitive_lib_dirs.to_list())
     asserts.equals(env, [], t[PerlInfo].transitive_data_files.to_list())
 
-    asserts.equals(env, ["tests/single-library/lib/Single/Library.pm"], [d.short_path for d in t[DefaultInfo].files.to_list()])
-    asserts.equals(env, ["tests/single-library/lib/Single/Library.pm"], [d.short_path for d in t[DefaultInfo].default_runfiles.files.to_list()])
+    asserts.equals(env, ["tests/library-single/lib/Single/Library.pm"], [d.short_path for d in t[DefaultInfo].files.to_list()])
+    asserts.equals(env, ["tests/library-single/lib/Single/Library.pm"], [d.short_path for d in t[DefaultInfo].default_runfiles.files.to_list()])
 
     return analysistest.end(env)
 

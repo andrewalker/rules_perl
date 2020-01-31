@@ -5,17 +5,17 @@ def _test_impl(ctx):
     env = analysistest.begin(ctx)
 
     t = analysistest.target_under_test(env)
-    libs = [ "tests/libraries-with-data/lib/A.pm", "tests/libraries-with-data/lib/B.pm", "tests/libraries-with-data/lib/C.pm" ]
+    libs = [ "tests/library-data/lib/A.pm", "tests/library-data/lib/B.pm", "tests/library-data/lib/C.pm" ]
     data_files = [
-        "tests/libraries-with-data/data1.txt",
-        "tests/libraries-with-data/data2.txt",
-        "tests/libraries-with-data/data3.txt",
-        "tests/libraries-with-data/share/favicon.ico",
-        "tests/libraries-with-data/share/favicon.png",
+        "tests/library-data/data1.txt",
+        "tests/library-data/data2.txt",
+        "tests/library-data/data3.txt",
+        "tests/library-data/share/favicon.ico",
+        "tests/library-data/share/favicon.png",
     ]
 
     asserts.equals(env, libs, [ d.short_path for d in t [PerlInfo].transitive_sources.to_list() ])
-    asserts.equals(env, ["tests/libraries-with-data/lib"], t[PerlInfo].transitive_lib_dirs.to_list())
+    asserts.equals(env, ["tests/library-data/lib"], t[PerlInfo].transitive_lib_dirs.to_list())
     asserts.equals(env, data_files, [ d.short_path for d in t[PerlInfo].transitive_data_files.to_list() ])
 
     asserts.equals(env, libs + data_files, [d.short_path for d in t[DefaultInfo].files.to_list()])
