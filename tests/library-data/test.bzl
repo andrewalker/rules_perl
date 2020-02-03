@@ -31,6 +31,9 @@ def setup_test():
         srcs = ["lib/A.pm"],
         data = ["data1.txt", "data2.txt", "data3.txt"],
         tags = ["manual"],
+
+        # A is also used to validate a binary depending on an external package
+        visibility = ["//tests/binary-multiple-packages:__pkg__"],
     )
     perl_library(
         name = "B",
